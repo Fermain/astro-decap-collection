@@ -1,4 +1,5 @@
 import type { CmsCollection, CmsConfig } from 'decap-cms-core';
+import { dump, load } from 'js-yaml';
 
 // TODO use the CmsField['widget'] type from decap-cms-core but exclude the generic string somehow
 export type DecapWidgetType =
@@ -30,7 +31,10 @@ export async function loadDecapConfig(ymlPath: string): Promise<CmsConfig | unde
 
   // ... and use it to process the config file
   const configRaw = await readFile(ymlPath, 'utf8');
-  return parseConfig(configRaw);
+
+  // explode the yaml content to handle anchors
+  const configExploded = explodeYaml(configRaw);
+  return parseConfig(configExploded);
 }
 
 export async function parseConfig(ymlData: string): Promise<CmsConfig | undefined> {
@@ -66,4 +70,8 @@ export async function parseConfig(ymlData: string): Promise<CmsConfig | undefine
 
 export function getCollection(config: CmsConfig, name: string): CmsCollection | undefined {
   return config.collections.find(collection => collection.name === name);
+}
+
+export function explodeYaml(yamlString: string) {
+  return dump(load(yamlString));
 }

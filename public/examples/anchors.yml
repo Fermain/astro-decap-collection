@@ -1,0 +1,27 @@
+﻿locale: "de"
+
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: "/public/media"
+public_folder: "/public/media"
+
+# Define an anchor for a select widget with options.
+test_anchor: &test_anchor
+  widget: "string"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+
+      # Merge the test_anchor anchor directly into this field
+      - name: "test-anchor"
+        label: "Test Anchor"
+        <<: *test_anchor
