@@ -10,8 +10,9 @@ media_folder: "/public/media"
 public_folder: "/public/media"
 
 # Define an anchor for a select widget with options.
-test_anchor: &test_anchor
-  widget: "string"
+anchors:
+  test: &test_anchor
+    widget: "string"
 
 collections:
   - name: "blog"
@@ -22,6 +23,6 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
 
       # Merge the test_anchor anchor directly into this field
-      - name: "test-anchor"
+      - name: "test_anchor"
         label: "Test Anchor"
         <<: *test_anchor

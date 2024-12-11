@@ -31,7 +31,7 @@ describe('decap.utils', () => {
       expect(blogCollection).toHaveProperty('fields');
 
       const anchorTestField = blogCollection?.fields?.find(
-        (field: any) => field.name === 'test-anchor',
+        (field: any) => field.name === 'test_anchor',
       );
       expect(anchorTestField).toBeDefined();
 
